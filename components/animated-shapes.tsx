@@ -15,6 +15,7 @@ import { Dimensions } from 'react-native'
 import {
   useDerivedValue,
   useSharedValue,
+  withRepeat,
   withTiming,
 } from 'react-native-reanimated'
 
@@ -36,7 +37,7 @@ export default function AnimatedShapes() {
   const progress = useSharedValue(0)
 
   useEffect(() => {
-    progress.value = withTiming(Math.PI / 3, { duration: 3000 })
+    progress.value = withRepeat(withTiming(Math.PI / 3, { duration: 3000 }), -1, true)
   }, [])
 
   const animatedTransform = useDerivedValue(() => [
@@ -70,7 +71,7 @@ export default function AnimatedShapes() {
         <BlurMask blur={5} style="inner" />
         {/* <DiscretePathEffect deviation={5} length={10} /> */}
         {/* <DashPathEffect intervals={[10, 10]} /> */}
-        <Group color="skyblue" style="stroke" strokeWidth={18}>
+        <Group color="skyblue" style="stroke" strokeWidth={18} strokeCap='round'>
           <Path path={oval} end={animatedPath} />
           <Group transform={animatedTransform} origin={center}>
             <Path path={oval} end={animatedPath} />
