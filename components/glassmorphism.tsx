@@ -5,10 +5,12 @@ import {
   Canvas,
   Circle,
   ColorMatrix,
+  DisplacementMap,
   Fill,
   Group,
   LinearGradient,
   Paint,
+  Turbulence,
   vec,
 } from '@shopify/react-native-skia'
 import { Dimensions, GestureResponderEvent } from 'react-native'
@@ -25,7 +27,8 @@ const BLACK_AND_WHITE = [
 ]
 
 const GRAYSCALE = [
-  0.299, 0.587, 0.114, 0, 0, 0.299, 0.587, 0.114, 0, 0, 0.299, 0.587, 0.114, 0, 0, 0, 0, 0, 1, 0,
+  0.299, 0.587, 0.114, 0, 0, 0.299, 0.587, 0.114, 0, 0, 0.299, 0.587, 0.114, 0,
+  0, 0, 0, 0, 1, 0,
 ]
 
 const NEGATIVE = [
@@ -33,7 +36,8 @@ const NEGATIVE = [
 ]
 
 const SEPIA = [
-  0.393, 0.769, 0.189, 0, 0, 0.349, 0.686, 0.168, 0, 0, 0.272, 0.534, 0.131, 0, 0, 0, 0, 0, 1, 0,
+  0.393, 0.769, 0.189, 0, 0, 0.349, 0.686, 0.168, 0, 0, 0.272, 0.534, 0.131, 0,
+  0, 0, 0, 0, 1, 0,
 ]
 
 const SHARPEN = [
@@ -78,10 +82,19 @@ export default function Glassmorphism() {
           />
           <Circle c={c} r={r} />
           {/* <Blur blur={10} /> */}
+          {/* <Turbulence seed={10} freqX={0.001} freqY={0.001} octaves={4} /> */}
         </Group>
         <BackdropBlur blur={20} clip={animatedRect} />
-        <BackdropFilter
+        {/* <BackdropFilter
           filter={<ColorMatrix matrix={SHARPEN} />}
+          clip={animatedRect}
+        /> */}
+        <BackdropFilter
+          filter={
+            <DisplacementMap channelX="a" channelY="r" scale={50}>
+              <Turbulence freqX={0.005} freqY={0.09} octaves={2} />
+            </DisplacementMap>
+          }
           clip={animatedRect}
         />
       </Paint>
