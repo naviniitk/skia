@@ -4,11 +4,12 @@ import Shapes from '@/components/shapes'
 import ShadersDemo from '@/components/shaders-demo'
 import AnimatedShapes from '../../components/animated-shapes'
 import Hue from '../../components/hue'
+import Glassmorphism from '../../components/glassmorphism'
 
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <Hue />
+      <Glassmorphism />
     </View>
   )
 }
