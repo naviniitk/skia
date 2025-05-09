@@ -6,11 +6,12 @@ import AnimatedShapes from '../../components/animated-shapes'
 import Hue from '../../components/hue'
 import Glassmorphism from '../../components/glassmorphism'
 import Neuromorphism from '../../components/neuromorphism'
+import ColorFilters from '../../components/color-filters'
 
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <Neuromorphism />
+      <ColorFilters />
     </View>
   )
 }
