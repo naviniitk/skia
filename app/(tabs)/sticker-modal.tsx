@@ -49,34 +49,21 @@ export default function StickerModal() {
       }}
       collapsable={false}
     >
-      <ScrollView contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+      <ScrollView
+        contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap' }}
+      >
         {stickersList.map(({ Sticker, size }, index) => {
           const { width, height } = size
           const src = rect(0, 0, width, height)
           const dst = deflate(rect(0, 0, tileWidth, tileHeight), 12)
           const transform = fitbox('contain', src, dst)
           return (
-          <Pressable key={index} onPress={onPress.bind(null, Sticker, size)}>
-            <Canvas style={{ width: tileWidth, height: tileHeight }}>
-              <Group transform={transform}>
-                <Sticker matrix={Skia.Matrix()} />
-              </Group>
-            </Canvas>
-            </Pressable>
-          )
-        })}
-        {stickersList.map(({ Sticker, size }, index) => {
-          const { width, height } = size
-          const src = rect(0, 0, width, height)
-          const dst = deflate(rect(0, 0, tileWidth, tileHeight), 12)
-          const transform = fitbox('contain', src, dst)
-          return (
-          <Pressable key={index} onPress={onPress.bind(null, Sticker, size)}>
-            <Canvas style={{ width: tileWidth, height: tileHeight }}>
-              <Group transform={transform}>
-                <Sticker matrix={Skia.Matrix()} />
-              </Group>
-            </Canvas>
+            <Pressable key={index} onPress={onPress.bind(null, Sticker, size)}>
+              <Canvas style={{ width: tileWidth, height: tileHeight }}>
+                <Group transform={transform}>
+                  <Sticker matrix={Skia.Matrix()} />
+                </Group>
+              </Canvas>
             </Pressable>
           )
         })}

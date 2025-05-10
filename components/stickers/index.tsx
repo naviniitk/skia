@@ -7,13 +7,18 @@ import {
 } from '@shopify/react-native-skia'
 
 import { useSticker } from '@/providers/sticker-provider'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { Dimensions, Pressable, Share, View } from 'react-native'
 import { SharedValue } from 'react-native-reanimated'
 import StickerGesture from './sticker-gesture'
+import { useRouter } from 'expo-router'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 const { width, height } = Dimensions.get('window')
 
 export default function Stickers() {
+  const router = useRouter()
+  const safeAreaInsets = useSafeAreaInsets()
+  const { undoSticker } = useSticker()
   const ref = useCanvasRef()
   const { stickers } = useSticker()
   const image = useImage(require('@/assets/images/food.png'))
@@ -22,6 +27,34 @@ export default function Stickers() {
 
   return (
     <View style={{ flex: 1 }}>
+      <Pressable
+        onPress={() => router.push('/sticker-modal')}
+        style={{
+          position: 'absolute',
+          top: 20 + safeAreaInsets.top,
+          left: 20,
+          zIndex: 1000,
+          padding: 10,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          borderRadius: 10,
+        }}
+      >
+        <MaterialCommunityIcons name="sticker-emoji" size={24} color="white" />
+      </Pressable>
+      <Pressable
+        onPress={undoSticker}
+        style={{
+          position: 'absolute',
+          top: 20 + safeAreaInsets.top,
+          right: 20,
+          zIndex: 1000,
+          padding: 10,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          borderRadius: 10,
+        }}
+      >
+        <Ionicons name="arrow-undo" size={24} color="white" />
+      </Pressable>
       <Canvas ref={ref} style={{ flex: 1 }}>
         <Image
           image={image}
