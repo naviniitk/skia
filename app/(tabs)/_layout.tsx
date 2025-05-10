@@ -27,6 +27,21 @@ export default function TabLayout() {
           title: 'Explore',
         }}
       />
+      <Stack.Screen
+        name="sticker-modal"
+        options={{
+          title: 'Stickers',
+          presentation: 'formSheet',
+          sheetAllowedDetents: [0.2, 0.8, 1],
+          sheetInitialDetentIndex: 1,
+          sheetGrabberVisible: true,
+          sheetElevation: 10,
+          sheetExpandsWhenScrolledToEdge: true,
+          contentStyle: {
+            // backgroundColor: 'black',
+          },
+        }}
+      />
     </Stack>
   )
 }
