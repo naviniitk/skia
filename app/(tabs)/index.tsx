@@ -12,11 +12,12 @@ import { useRouter } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useSticker } from '@/providers/sticker-provider'
+import AnimatedRings from '../../components/animated-ring'
 
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <Stickers />
+      <AnimatedRings />
     </View>
   )
 }
