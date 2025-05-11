@@ -209,7 +209,7 @@ function Ring({
         >
           <SweepGradient c={c} colors={colors} matrix={matrix} />
         </Path>
-        <Circle
+        <Circle // Method 1
           c={endPoint}
           r={strokeWidth / 2}
           color={colors[1]}
@@ -220,6 +220,12 @@ function Ring({
           </Shader>
           <Shadow color="#000" blur={10} dx={0} dy={0} />
         </Circle>
+
+        {/* <Fill> // Method 2 with shader only, better method
+          <Shader source={source} uniforms={uniforms}>
+            <SweepGradient c={c} colors={colors} matrix={matrix} />
+          </Shader>
+        </Fill> */}
       </Group>
     </Group>
   )
