@@ -1,12 +1,18 @@
 import {
+  BackdropFilter,
+  Blur,
   BlurMask,
   Canvas,
   center,
   Fill,
+  Image,
+  processTransform3d,
   rect,
   RoundedRect,
   rrect,
   SweepGradient,
+  useImage,
+  usePathValue,
 } from '@shopify/react-native-skia'
 import { Dimensions } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
@@ -18,7 +24,7 @@ import {
 import { inflate } from '../utils/geometry'
 const { width, height } = Dimensions.get('window')
 
-const rct = rrect(rect(40, height / 2 - 100, width - 80, 200), 20, 20)
+const rct = rrect(rect(20, height / 2 - 120, width - 40, 240), 20, 20)
 const sf = 1 / 300 // scale factor
 
 const springConfig = (velocity: number) => {
@@ -35,6 +41,7 @@ const springConfig = (velocity: number) => {
 }
 
 export default function FrostedCard() {
+  const image = useImage(require('@/assets/images/zurich.jpg'))
   const rotateX = useSharedValue(0)
   const rotateY = useSharedValue(0)
 
@@ -50,6 +57,20 @@ export default function FrostedCard() {
 
   const cardCenter = center(rct.rect)
 
+  const clip = usePathValue((path) => {
+    'worklet'
+    path.addRRect(rct)
+    path.transform(
+      processTransform3d([
+        { translate: [cardCenter.x, cardCenter.y] },
+        { perspective: 400 },
+        { rotateX: rotateX.value },
+        { rotateY: rotateY.value },
+        { translate: [-cardCenter.x, -cardCenter.y] },
+      ])
+    )
+  })
+
   const transform = useDerivedValue(() => {
     return [
       { translate: [cardCenter.x, cardCenter.y] },
@@ -60,10 +81,26 @@ export default function FrostedCard() {
     ]
   })
 
+  if (!image) return null
+
   return (
     <GestureDetector gesture={panGesture}>
       <Canvas style={{ flex: 1 }}>
-        <Fill />
+        <Image
+          image={image}
+          x={0}
+          y={0}
+          width={width}
+          height={height}
+          fit="cover"
+        />
+        <BackdropFilter
+          filter={<Blur blur={10} />}
+          clip={clip}
+        >
+          <Fill color={'rgba(0, 0, 0, 0.1)'} />
+        </BackdropFilter>
+        {/* <Fill />
         <RoundedRect rect={rrect(inflate(rct.rect, 2), 20, 20)}>
           <SweepGradient
             c={cardCenter}
@@ -71,7 +108,7 @@ export default function FrostedCard() {
           />
           <BlurMask blur={10} style="solid" />
         </RoundedRect>
-        <RoundedRect rect={rct} transform={transform} />
+        <RoundedRect rect={rct} transform={transform} /> */}
       </Canvas>
     </GestureDetector>
   )
