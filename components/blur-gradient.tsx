@@ -19,7 +19,7 @@ import Animated, {
 const { width, height } = Dimensions.get('window')
 
 export default function BlurGradientWrapper() {
-  const image = useImage(require('@/assets/images/zurich.jpg'))
+  const image = useImage(require('@/assets/images/zurich2.jpg'))
   const scrollY = useSharedValue(0)
 
   const onScroll = useAnimatedScrollHandler({

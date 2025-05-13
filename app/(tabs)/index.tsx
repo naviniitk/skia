@@ -14,11 +14,12 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useSticker } from '@/providers/sticker-provider'
 import AnimatedRings from '../../components/animated-ring'
 import BlurGradientWrapper from '../../components/blur-gradient'
+import Heartbeat from '../../components/heartbeat'
 
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <BlurGradientWrapper />
+      <Heartbeat />
     </View>
   )
 }
