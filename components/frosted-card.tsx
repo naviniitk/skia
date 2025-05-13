@@ -15,7 +15,7 @@ import {
   SweepGradient,
   useImage,
   usePathValue,
-  mix
+  mix,
 } from '@shopify/react-native-skia'
 import { Dimensions } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
@@ -26,6 +26,7 @@ import {
 } from 'react-native-reanimated'
 import { inflate } from '../utils/geometry'
 import { frag } from '../utils/frag'
+import { GradientBlurMask } from './gradient-blur-mask'
 const { width, height } = Dimensions.get('window')
 
 const rct = rrect(rect(20, height / 2 - 120, width - 40, 240), 20, 20)
@@ -101,6 +102,16 @@ export default function FrostedCard() {
     }
   })
 
+  const matrix = useDerivedValue(() => {
+    return processTransform3d([
+      { translate: [cardCenter.x, cardCenter.y] },
+      { perspective: 400 },
+      { rotateX: rotateX.value },
+      { rotateY: rotateY.value },
+      { translate: [-cardCenter.x, -cardCenter.y] },
+    ])
+  })
+
   const transform = useDerivedValue(() => {
     return [
       { translate: [cardCenter.x, cardCenter.y] },
@@ -125,7 +136,7 @@ export default function FrostedCard() {
           fit="cover"
         />
         <BackdropFilter
-          filter={<RuntimeShader source={source} uniforms={uniforms} />}
+          filter={<GradientBlurMask matrix={matrix} />}
           clip={clip}
         >
           <Fill color={'rgba(0, 0, 0, 0.1)'} />
