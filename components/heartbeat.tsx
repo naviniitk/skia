@@ -13,13 +13,9 @@ import {
 import { useEffect, useRef } from 'react'
 import { Dimensions } from 'react-native'
 import {
-  cancelAnimation,
   Easing,
   SharedValue,
   useDerivedValue,
-  useSharedValue,
-  withDelay,
-  withRepeat,
   withTiming,
 } from 'react-native-reanimated'
 import { useLoop, useSharedValues } from '../utils/animations'

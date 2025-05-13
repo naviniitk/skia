@@ -15,11 +15,12 @@ import { useSticker } from '@/providers/sticker-provider'
 import AnimatedRings from '../../components/animated-ring'
 import BlurGradientWrapper from '../../components/blur-gradient'
 import Heartbeat from '../../components/heartbeat'
+import FrostedCard from '../../components/frosted-card'
 
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <Heartbeat />
+      <FrostedCard />
     </View>
   )
 }
