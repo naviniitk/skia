@@ -16,11 +16,12 @@ import AnimatedRings from '../../components/animated-ring'
 import BlurGradientWrapper from '../../components/blur-gradient'
 import Heartbeat from '../../components/heartbeat'
 import FrostedCard from '../../components/frosted-card'
+import MusicBottomSheet from '../../components/music-bottom-sheet'
 
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <FrostedCard />
+      <MusicBottomSheet />
     </View>
   )
 }

@@ -14,7 +14,11 @@ import {
   vec,
 } from '@shopify/react-native-skia'
 import { Dimensions, GestureResponderEvent } from 'react-native'
-import { useDerivedValue, useSharedValue } from 'react-native-reanimated'
+import {
+  useDerivedValue,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated'
 const { width, height } = Dimensions.get('window')
 
 const c = vec(width / 2, height / 2)
@@ -44,6 +48,19 @@ const SHARPEN = [
   1.2, 0, 0, 0, 0, 0, 1.2, 0, 0, 0, 0, 0, 1.2, 0, 0, 0, 0, 0, 1, 0,
 ]
 
+const springConfig = (velocity: number) => {
+  'worklet'
+  return {
+    mass: 1,
+    damping: 4,
+    stiffness: 200,
+    overshootClamping: false,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 2,
+    velocity,
+  }
+}
+
 export default function Glassmorphism() {
   const translateY = useSharedValue(c.y)
   let lastY = 0
@@ -55,6 +72,11 @@ export default function Glassmorphism() {
   const onTouchMove = (e: GestureResponderEvent) => {
     translateY.value += e.nativeEvent.locationY - lastY
     lastY = e.nativeEvent.locationY
+  }
+
+  const onTouchEnd = () => {
+    translateY.value = withSpring(c.y, springConfig(6))
+    lastY = 0
   }
 
   const animatedRect = useDerivedValue(() => {
@@ -71,6 +93,7 @@ export default function Glassmorphism() {
       style={{ flex: 1 }}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
       <Fill color="black" />
       <Paint>
