@@ -1,4 +1,11 @@
-import { Canvas, Circle, mix } from '@shopify/react-native-skia'
+import {
+  Canvas,
+  Circle,
+  Group,
+  mix,
+  RadialGradient,
+  vec,
+} from '@shopify/react-native-skia'
 import { Dimensions } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import {
@@ -8,7 +15,7 @@ import {
   withSpring,
 } from 'react-native-reanimated'
 
-const { height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 const bubblesForHeight = Math.round(height / 30)
 const row = 16
@@ -35,9 +42,16 @@ export default function ChasingBubbles() {
   return (
     <GestureDetector gesture={panGesture}>
       <Canvas style={{ flex: 1 }}>
-        {bubbles.map((index) => (
-          <Bubble key={index} index={index} cx={cx} cy={cy} />
-        ))}
+        <Group>
+          {bubbles.map((index) => (
+            <Bubble key={index} index={index} cx={cx} cy={cy} />
+          ))}
+          <RadialGradient
+            c={vec(width / 2, height / 2)}
+            r={height / 2}
+            colors={['#FF0B55', '#FFDEDE', '#C5172E']}
+          />
+        </Group>
       </Canvas>
     </GestureDetector>
   )
@@ -67,5 +81,5 @@ function Bubble({ index, cx, cy }: BubbleProps) {
     })
   }, [cx, cy])
 
-  return <Circle cx={currentColumn} cy={currentRow} r={radius} color="red" />
+  return <Circle cx={currentColumn} cy={currentRow} r={radius} />
 }
