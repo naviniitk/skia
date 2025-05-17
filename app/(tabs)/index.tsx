@@ -17,11 +17,12 @@ import BlurGradientWrapper from '../../components/blur-gradient'
 import Heartbeat from '../../components/heartbeat'
 import FrostedCard from '../../components/frosted-card'
 import MusicBottomSheet from '../../components/music-bottom-sheet'
+import GradientClock from '../../components/gradient-clock'
 
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <MusicBottomSheet />
+      <GradientClock />
     </View>
   )
 }

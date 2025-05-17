@@ -13,6 +13,8 @@ import Animated, {
 import { Entypo, Foundation, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+// Taken from https://github.com/mahdidavoodi7/expo-apple-music-bottom-sheet
+
 const { height, width } = Dimensions.get("window");
 
 const gnx = require('../assets/images/gnx.jpeg');
@@ -53,7 +55,7 @@ export default function MusicBottomSheet() {
       backgroundColor.value = withSpring("#FFFFFF", ANIMATION_CONFIGS_IOS)
       smallOpacity.value = withTiming(1, { duration: 100 })
       largeOpacity.value = withTiming(0, { duration: 100 })
-      setCanPan(false)
+      setCanPan(true)
     }
     if (from === 1 && to === 2) {
       imageTranslateX.value = withSpring(width / 2 - (240 / 2), ANIMATION_CONFIGS_IOS)
@@ -73,7 +75,7 @@ export default function MusicBottomSheet() {
     return {
       height: interpolate(bottomSheetIndex.value, [1, 2], [54, height], Extrapolation.CLAMP),
       marginHorizontal: interpolate(bottomSheetIndex.value, [1, 2], [12, 0], Extrapolation.CLAMP),
-      backgroundColor: interpolateColor(bottomSheetIndex.value, [1, 1.4], ['#FFFFFF', '#7C7D80']),
+      backgroundColor: interpolateColor(bottomSheetIndex.value, [1, 2], ['#FFFFFF', '#FE4800']),
       boxShadow: bottomSheetIndex.value < 1.05 ? "0px 2px 20px rgba(0, 0 , 0, 0.15)" : "0px 2px 20px rgba(0, 0 , 0, 0)",
       borderRadius: bottomSheetIndex.value < 1.05 ? 12 : 0,
     }
