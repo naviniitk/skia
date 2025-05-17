@@ -18,11 +18,12 @@ import Heartbeat from '../../components/heartbeat'
 import FrostedCard from '../../components/frosted-card'
 import MusicBottomSheet from '../../components/music-bottom-sheet'
 import GradientClock from '../../components/gradient-clock'
+import ChasingBubbles from '../../components/chasing-bubbles'
 
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <GradientClock />
+      <ChasingBubbles />
     </View>
   )
 }
