@@ -22,13 +22,13 @@ const row = 16
 const bubbles = Array.from(Array(row * bubblesForHeight).keys())
 
 export default function ChasingBubbles() {
-  const cx = useSharedValue(-100)
-  const cy = useSharedValue(-100)
+  const cx = useSharedValue(-1000)
+  const cy = useSharedValue(-1000)
 
   const panGesture = Gesture.Pan()
     .onEnd(() => {
-      cx.value = -100
-      cy.value = -100
+      cx.value = -1000
+      cy.value = -1000
     })
     .onBegin((event) => {
       cx.value = event.x
@@ -39,6 +39,10 @@ export default function ChasingBubbles() {
       cy.value = event.y
     })
 
+  const center = useDerivedValue(() => {
+    return vec(cx.value, cy.value)
+  }, [cx, cy])
+
   return (
     <GestureDetector gesture={panGesture}>
       <Canvas style={{ flex: 1 }}>
@@ -47,9 +51,9 @@ export default function ChasingBubbles() {
             <Bubble key={index} index={index} cx={cx} cy={cy} />
           ))}
           <RadialGradient
-            c={vec(width / 2, height / 2)}
+            c={center}
             r={height / 2}
-            colors={['#FF0B55', '#FFDEDE', '#C5172E']}
+            colors={['#FF0B55', '#FF0B1E', '#C5172E']}
           />
         </Group>
       </Canvas>
@@ -76,7 +80,7 @@ function Bubble({ index, cx, cy }: BubbleProps) {
     //   return withSpring(12, { overshootClamping: true })
     // }
 
-    return withSpring(mix(55 / (hypotenuse + 10), 4, 12), {
+    return withSpring(mix(100 / (hypotenuse + 10), 4, 12), {
       overshootClamping: true,
     })
   }, [cx, cy])

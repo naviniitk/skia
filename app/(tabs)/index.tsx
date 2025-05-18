@@ -19,11 +19,12 @@ import FrostedCard from '../../components/frosted-card'
 import MusicBottomSheet from '../../components/music-bottom-sheet'
 import GradientClock from '../../components/gradient-clock'
 import ChasingBubbles from '../../components/chasing-bubbles'
+import Blob from '../../components/blob'
 
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <ChasingBubbles />
+      <Blob />
     </View>
   )
 }
