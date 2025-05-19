@@ -20,11 +20,12 @@ import MusicBottomSheet from '../../components/music-bottom-sheet'
 import GradientClock from '../../components/gradient-clock'
 import ChasingBubbles from '../../components/chasing-bubbles'
 import Blob from '../../components/blob'
+import Wave from '../../components/wave'
 
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <Blob />
+      <Wave />
     </View>
   )
 }
